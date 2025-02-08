@@ -39,6 +39,10 @@
     font-size: 1rem;
     margin-bottom: 10px;
     color: var(--brightBlue);
+
+    #copy-share-btn {
+      cursor: pointer;
+    }
   }
 
   &-meta {

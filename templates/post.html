@@ -9,6 +9,7 @@ th:replace="~{modules/layout :: html(header = null, content = ~{::content}, foot
     <div class="post-meta">
       <span class="post-date" th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"> publishTime </span>
       <span class="post-author" th:text="${':: '+post.owner.displayName}">:: Author</span>
+      <span id="copy-share-btn">:: 分享</span>
     </div>
     <span class="post-tags-inline" th:each="tag : ${post.tags}">
       <a
@@ -64,6 +65,35 @@ th:replace="~{modules/layout :: html(header = null, content = ~{::content}, foot
       window.onresize = function () {
         locateToc();
       };
+    </script>
+    <!-- 复制分享链接 -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const textDefault = '分享';
+        const textCopy = '已复制链接';
+        const textPrefix = ':: ';
+        const title = document.querySelector('.post-title').innerText;
+        const copyContent = `「${title} 」${window.location.href}`;
+        const copyBtnEl = document.getElementById('copy-share-btn');
+        copyBtnEl.textContent = textPrefix + textDefault;
+        copyBtnEl.addEventListener('click', copyLink);
+
+        function copyLink() {
+          navigator.clipboard
+            .writeText(copyContent)
+            .then(() => {
+              copyBtnEl.textContent = textPrefix + textCopy;
+              copyBtnEl.removeEventListener('click', copyLink);
+              setTimeout(() => {
+                copyBtnEl.textContent = textPrefix + textDefault;
+                copyBtnEl.addEventListener('click', copyLink);
+              }, 3000);
+            })
+            .catch((err) => {
+              console.error('复制失败: ', err);
+            });
+        }
+      });
     </script>
   </th:block>
 </html>
