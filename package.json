@@ -5,7 +5,7 @@
   "description": "A terminal like theme for Halo.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && zip -r theme.zip templates settings.yaml theme.yaml",
     "lint": "eslint ./src --ext .js,.cjs,.mjs,.ts,.cts,.mts --ignore-path .gitignore",
     "prettier": "prettier --write './src/**/*.{js,ts,css,json,ml,yaml,html}' './templates/**/*.html'"
   },

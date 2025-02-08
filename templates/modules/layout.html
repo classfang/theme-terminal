@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="html (header, content, footer)">
+<html lang="en" th:fragment="html (title, header, content, footer)">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title th:text="${site.title}"></title>
+    
+    <th:block th:if="${title != null}" >
+      <title th:text="${title}"></title>
+    </th:block>
+    <th:block th:if="${title == null}" >
+      <title th:text="${site.title}"></title>
+    </th:block>
 
     <th:block th:if="${theme.config.development.enabled}">
       <script type="module" src="http://localhost:5173/@vite/client"></script>
